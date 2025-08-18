@@ -1,36 +1,120 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# xPay - 研究室の在庫管理システム
 
-## Getting Started
+研究室内の食べ物や飲み物の在庫を管理し、簡単に購入できるWebアプリケーションです。
 
-First, run the development server:
+## 機能
+
+- **在庫管理**: 研究室内の商品在庫をリアルタイムで管理
+- **商品購入**: カート機能で商品を選択し、決済までスムーズに進められる
+- **在庫状況**: 在庫の状況を視覚的に確認し、適切なタイミングで補充可能
+
+## 技術スタック
+
+- **フレームワーク**: Next.js 15.4.2（App Router）
+- **フロントエンド**: React 19.1.0
+- **スタイリング**: Tailwind CSS 4
+- **データベース**: Supabase（認証・データ管理）
+- **言語**: TypeScript
+- **モック**: MSW（Mock Service Worker）
+
+## セットアップ
+
+### 1. 依存関係のインストール
+
+```bash
+npm install
+```
+
+### 2. 環境変数の設定
+
+`.env.local`ファイルを作成し、以下の内容を設定してください：
+
+```env
+# Supabase設定
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url_here
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key_here
+
+# その他の設定
+NODE_ENV=development
+```
+
+### 3. Supabaseプロジェクトの設定
+
+1. [Supabase](https://supabase.com/)でアカウントを作成
+2. 新しいプロジェクトを作成
+3. プロジェクトのURLとanon keyを取得
+4. 上記の環境変数に設定
+
+### 4. 開発サーバーの起動
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+ブラウザで [http://localhost:3000](http://localhost:3000) を開いてください。
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 使用方法
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 商品一覧ページ (`/products`)
+- 研究室内で利用できる商品を閲覧
+- カテゴリー別のフィルタリング
+- 検索機能
+- カートへの商品追加
 
-## Learn More
+### カートページ (`/cart`)
+- 選択した商品の確認
+- 数量の調整
+- 商品の削除
+- 決済への進出
 
-To learn more about Next.js, take a look at the following resources:
+### 決済ページ (`/checkout`)
+- 注文内容の確認
+- お客様情報の入力
+- 決済方法の選択
+- 決済の実行
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 在庫管理ページ (`/inventory`)
+- 商品の追加・編集
+- 在庫状況の確認
+- 在庫サマリーの表示
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 開発
 
-## Deploy on Vercel
+### ディレクトリ構造
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+src/
+├── app/                 # Next.js App Router
+│   ├── products/       # 商品一覧ページ
+│   ├── cart/          # カートページ
+│   ├── checkout/      # 決済ページ
+│   └── inventory/     # 在庫管理ページ
+├── components/         # 再利用可能なコンポーネント
+├── contexts/          # Reactコンテキスト
+├── lib/               # ユーティリティとライブラリ
+└── mocks/             # MSWモック設定
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### モックデータ
+
+開発環境では、MSWを使用してモックAPIを提供しています。本番環境では、実際のSupabase APIを使用します。
+
+### ビルド
+
+```bash
+npm run build
+```
+
+### 本番環境での実行
+
+```bash
+npm start
+```
+
+## ライセンス
+
+このプロジェクトはMITライセンスの下で公開されています。
+
+## 貢献
+
+プルリクエストやイシューの報告を歓迎します。
