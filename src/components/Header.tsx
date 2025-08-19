@@ -3,59 +3,89 @@
 import React from 'react'
 import Link from 'next/link'
 import { useCart } from '@/contexts/CartContext'
+import { useAuth } from '@/contexts/AuthContext'
 
 export const Header: React.FC = () => {
   const { state } = useCart()
+  const { user, logout } = useAuth()
+
+  const handleLogout = async () => {
+    await logout()
+  }
 
   return (
-    <header className="bg-white shadow-sm border-b border-gray-200">
+    <header className="bg-white shadow-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          {/* ロゴ */}
-          <Link href="/" className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-lg">x</span>
-            </div>
-            <span className="text-xl font-bold text-gray-900">xPay</span>
-          </Link>
+          <div className="flex items-center">
+            <Link href="/" className="flex items-center">
+              <div className="h-8 w-8 bg-blue-600 rounded-lg flex items-center justify-center mr-2">
+                <span className="text-white text-lg font-bold">x</span>
+              </div>
+              <span className="text-xl font-bold text-gray-900">xPay</span>
+            </Link>
+          </div>
 
-          {/* ナビゲーション */}
           <nav className="hidden md:flex space-x-8">
             <Link
-              href="/"
-              className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
-            >
-              ホーム
-            </Link>
-            <Link
               href="/products"
-              className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+              className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
             >
               商品一覧
             </Link>
             <Link
-              href="/inventory"
-              className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
-            >
-              在庫管理
-            </Link>
-          </nav>
-
-          {/* カート */}
-          <div className="flex items-center space-x-4">
-            <Link
               href="/cart"
-              className="relative p-2 text-gray-700 hover:text-blue-600 transition-colors"
+              className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
             >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m6-5v6a2 2 0 01-2 2H9a2 2 0 01-2-2v-6m8 0V9a2 2 0 00-2-2H9a2 2 0 00-2 2v4.01" />
-              </svg>
+              カート
               {state.items.length > 0 && (
-                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                <span className="ml-2 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white bg-blue-600 rounded-full">
                   {state.items.length}
                 </span>
               )}
             </Link>
+            {user?.role === 'admin' && (
+              <Link
+                href="/inventory"
+                className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+              >
+                在庫管理
+              </Link>
+            )}
+          </nav>
+
+          <div className="flex items-center space-x-4">
+            {user ? (
+              <div className="flex items-center space-x-3">
+                <div className="text-sm text-gray-700">
+                  <span className="font-medium">{user.name}</span>
+                  <span className="ml-2 text-xs bg-gray-100 px-2 py-1 rounded-full">
+                    {user.role === 'admin' ? '管理者' : 'メンバー'}
+                  </span>
+                </div>
+                <button
+                  onClick={handleLogout}
+                  className="text-gray-700 hover:text-red-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                >
+                  ログアウト
+                </button>
+              </div>
+            ) : (
+              <div className="flex items-center space-x-3">
+                <Link
+                  href="/login"
+                  className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                >
+                  ログイン
+                </Link>
+                <Link
+                  href="/register"
+                  className="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition-colors duration-200"
+                >
+                  新規登録
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </div>

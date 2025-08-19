@@ -36,13 +36,13 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
               ? { ...item, quantity: item.quantity + 1 }
               : item
           ),
-          total: state.total + action.payload.price,
+          total: state.total + action.payload.sell_price,
         }
       }
       return {
         ...state,
         items: [...state.items, { product: action.payload, quantity: 1 }],
-        total: state.total + action.payload.price,
+        total: state.total + action.payload.sell_price,
       }
     }
     case 'REMOVE_ITEM': {
@@ -51,7 +51,7 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
       return {
         ...state,
         items: state.items.filter(item => item.product.id !== action.payload),
-        total: state.total - (itemToRemove.product.price * itemToRemove.quantity),
+        total: state.total - (itemToRemove.product.sell_price * itemToRemove.quantity),
       }
     }
     case 'UPDATE_QUANTITY': {
@@ -65,7 +65,7 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
         items: state.items.map(item =>
           item.product.id === productId ? { ...item, quantity } : item
         ),
-        total: state.total + (item.product.price * quantityDiff),
+        total: state.total + (item.product.sell_price * quantityDiff),
       }
     }
     case 'CLEAR_CART':
