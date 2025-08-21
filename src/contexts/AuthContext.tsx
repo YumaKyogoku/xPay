@@ -57,10 +57,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         return { success: false, message: 'メールアドレスまたはパスワードが正しくありません。' }
       }
 
-      // セッションに保存
-      localStorage.setItem('xpay_session', JSON.stringify(data))
-      setUser(data)
-      return { success: true, message: 'ログインに成功しました。' }
+              // セッションに保存
+        localStorage.setItem('xpay_session', JSON.stringify(data))
+        setUser(data)
+        console.log('ログイン成功:', data)
+        return { success: true, message: 'ログインに成功しました。' }
     } catch (error) {
       console.error('ログインエラー:', error)
       return { success: false, message: 'ログイン中にエラーが発生しました。' }

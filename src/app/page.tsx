@@ -36,12 +36,20 @@ export default function HomePage() {
                   商品一覧を見る
                 </Link>
                 {user?.role === 'admin' && (
-                  <Link
-                    href="/inventory"
-                    className="bg-white text-blue-600 px-8 py-4 rounded-lg text-lg font-semibold border-2 border-blue-600 hover:bg-blue-50 transition-colors duration-200"
-                  >
-                    在庫管理
-                  </Link>
+                  <div className="flex space-x-4">
+                    <Link
+                      href="/inventory"
+                      className="bg-white text-blue-600 px-8 py-4 rounded-lg text-lg font-semibold border-2 border-blue-600 hover:bg-blue-50 transition-colors duration-200"
+                    >
+                      在庫管理
+                    </Link>
+                    <Link
+                      href="/admin/balance"
+                      className="bg-white text-green-600 px-8 py-4 rounded-lg text-lg font-semibold border-2 border-green-600 hover:bg-green-50 transition-colors duration-200"
+                    >
+                      残高管理
+                    </Link>
+                  </div>
                 )}
               </div>
             </div>

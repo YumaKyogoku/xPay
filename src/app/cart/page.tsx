@@ -1,6 +1,7 @@
 'use client'
 
 import React from 'react'
+import Link from 'next/link'
 import { useCart } from '@/contexts/CartContext'
 import { ProtectedRoute } from '@/components/ProtectedRoute'
 
@@ -18,21 +19,36 @@ export default function CartPage() {
   const total = state.items.reduce((sum, item) => sum + (item.product.sell_price * item.quantity), 0)
 
   if (state.items.length === 0) {
+    console.log('カートが空です。isCheckoutComplete:', state.isCheckoutComplete)
     return (
       <ProtectedRoute>
         <div className="min-h-screen bg-gray-50 py-8">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center py-12">
-              <div className="text-gray-400 text-6xl mb-4">🛒</div>
-              <h1 className="text-2xl font-bold text-gray-900 mb-2">カートが空です</h1>
-              <p className="text-gray-600 mb-6">商品を追加してカートを満たしましょう</p>
-              <a
-                href="/products"
-                className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
-              >
-                商品一覧を見る
-              </a>
-            </div>
+            {state.isCheckoutComplete ? (
+              <div className="text-center py-12">
+                <div className="text-green-400 text-6xl mb-4">✅</div>
+                <h1 className="text-2xl font-bold text-green-900 mb-2">決済が完了しました！</h1>
+                <p className="text-green-600 mb-6">ご購入ありがとうございます</p>
+                <Link
+                  href="/products"
+                  className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
+                >
+                  商品一覧に戻る
+                </Link>
+              </div>
+            ) : (
+              <div className="text-center py-12">
+                <div className="text-gray-400 text-6xl mb-4">🛒</div>
+                <h1 className="text-2xl font-bold text-gray-900 mb-2">カートが空です</h1>
+                <p className="text-gray-600 mb-6">商品を追加してカートを満たしましょう</p>
+                <Link
+                  href="/products"
+                  className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
+                >
+                  商品一覧を見る
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </ProtectedRoute>
@@ -99,12 +115,12 @@ export default function CartPage() {
               </div>
               
               <div className="mt-4">
-                <a
+                <Link
                   href="/checkout"
                   className="w-full bg-blue-600 text-white py-3 px-4 rounded-md font-medium hover:bg-blue-700 transition-colors duration-200 text-center block"
                 >
                   チェックアウトに進む
-                </a>
+                </Link>
               </div>
             </div>
           </div>

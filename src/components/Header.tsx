@@ -45,12 +45,20 @@ export const Header: React.FC = () => {
               )}
             </Link>
             {user?.role === 'admin' && (
-              <Link
-                href="/inventory"
-                className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
-              >
-                在庫管理
-              </Link>
+              <>
+                <Link
+                  href="/inventory"
+                  className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                >
+                  在庫管理
+                </Link>
+                <Link
+                  href="/admin/balance"
+                  className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                >
+                  残高管理
+                </Link>
+              </>
             )}
           </nav>
 

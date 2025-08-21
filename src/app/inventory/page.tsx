@@ -50,7 +50,7 @@ export default function InventoryPage() {
     }
   }
 
-  const handleAddProduct = async (newProduct: Omit<Product, 'id' | 'created_at' | 'bought_count' | 'sold_count' | 'created_by' | 'image'>) => {
+  const handleAddProduct = async (newProduct: Omit<Product, 'id' | 'created_at' | 'updated_at' | 'bought_count' | 'sold_count' | 'created_by' | 'image' | 'image_url' | 'description' | 'category'>) => {
     try {
       const { error } = await supabase
         .from('items')
@@ -190,7 +190,7 @@ export default function InventoryPage() {
 
 // 商品追加フォームコンポーネント
 function AddProductForm({ onSubmit, onCancel }: {
-  onSubmit: (product: Omit<Product, 'id' | 'created_at' | 'bought_count' | 'sold_count' | 'created_by' | 'image'>) => void
+  onSubmit: (product: Omit<Product, 'id' | 'created_at' | 'updated_at' | 'bought_count' | 'sold_count' | 'created_by' | 'image' | 'image_url' | 'description' | 'category'>) => void
   onCancel: () => void
 }) {
   const [name, setName] = useState('')

@@ -21,26 +21,31 @@ export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey)
 export interface Product {
   id: string
   name: string
+  description?: string | null
   buy_price: number
   sell_price: number
   stock: number
   bought_count: number
   sold_count: number
+  category?: string | null
+  image_url?: string | null
   created_by?: string | null
-  image: string | null
   created_at: string
+  updated_at: string
 }
 
 export interface User {
   id: string
   name: string
-  role: 'admin' | 'member'
-  password: string
   email: string
+  password: string
+  role: 'admin' | 'member'
   total_deposit: number
   total_withdraw: number
   balance: number
+  created_by?: string | null
   created_at: string
+  updated_at: string
 }
 
 export interface CartItem {
@@ -55,6 +60,27 @@ export interface Order {
   user_id: string
   total_amount: number
   status: 'pending' | 'completed' | 'cancelled'
-  items: CartItem[]
+  payment_method?: string
+  created_at: string
+  updated_at: string
+}
+
+export interface OrderItem {
+  id: string
+  order_id: string
+  item_id: string
+  quantity: number
+  unit_price: number
+  total_price: number
+  created_at: string
+}
+
+export interface Transaction {
+  id: string
+  user_id: string
+  type: 'deposit' | 'withdraw' | 'purchase'
+  amount: number
+  description?: string | null
+  related_order_id?: string | null
   created_at: string
 }

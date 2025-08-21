@@ -1,6 +1,7 @@
 'use client'
 
 import React from 'react'
+import Link from 'next/link'
 import { useCart } from '@/contexts/CartContext'
 import { Product } from '@/lib/supabase'
 
@@ -27,6 +28,18 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
       <div className="p-4">
         <h3 className="text-lg font-semibold text-gray-800 mb-2">{product.name}</h3>
+        
+        {product.category && (
+          <div className="mb-2">
+            <span className="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">
+              {product.category}
+            </span>
+          </div>
+        )}
+        
+        {product.description && (
+          <p className="text-sm text-gray-600 mb-3 line-clamp-2">{product.description}</p>
+        )}
 
         <div className="flex items-center justify-between mb-3">
           <span className="text-2xl font-bold text-blue-600">¥{product.sell_price}</span>
